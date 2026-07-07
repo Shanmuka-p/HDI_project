@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDI Prediction - Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary-accent: #3b82f6;
+            --secondary-accent: #8b5cf6;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1.5rem;
+            padding: 1.5rem 3rem;
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .navbar a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-accent);
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover::after {
+            width: 100%;
+        }
+
+        .navbar a:hover {
+            color: var(--primary-accent);
+        }
+
+        .container {
+            max-width: 650px;
+            width: 90%;
+            margin: 4rem auto;
+            background: rgba(17, 24, 39, 0.7);
+            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            padding: 3rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .container h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        select, input.form-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 0.85rem 1.15rem;
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        select:focus, input.form-input:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.25);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        select option {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .submit-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .logbtn {
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.9rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .logbtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.35);
+            filter: brightness(1.1);
+        }
+
+        .logbtn:active {
+            transform: translateY(0);
+        }
+
+        .bor {
+            margin-top: 2rem;
+            padding: 1rem;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.01);
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/Prediction">Predict</a>
+        <a href="/Home">Home</a>
+    </div>
+
+    <div class="container">
+        <h2>Enter Development Indicators</h2>
+        <form class="main" action="/predict" method="post">
+            <div class="form-group">
+                <label for="Country">Country</label>
+                <center>
+                    <select id="Country" name="Country" required>
+                        <option value="">Select the name of the Country</option>
+                        <option value="0">Afganistan</option>
+                        <option value="8">Australia</option>
+                        <option value="13">Bangladesh</option>
+                        <option value="31">Canada</option>
+                        <option value="76">India</option>
+                        <option value="138">Poland</option>
+                        <option value="179">Turkey</option>
+                    </select>
+                </center>
+            </div>
+            
+            <div class="form-group">
+                <label for="Life expectancy">Life Expectancy</label>
+                <input class="form-input" type="text" name="Life expectancy" id="Life expectancy" placeholder="Enter life expectancy rate(range 50-89)" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="Mean years of schooling">Mean Years of Schooling</label>
+                <input class="form-input" type="text" name="Mean years of schooling" id="Mean years of schooling" placeholder="Enter Mean years of schooling(range 0-20)" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="Gross national income (GNI) per capita">Gross National Income (GNI) per capita</label>
+                <input class="form-input" type="text" name="Gross national income (GNI) per capita" id="Gross national income (GNI) per capita" placeholder="Enter GNI(range 290-150000)" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="Internet users">Internet Users (%)</label>
+                <input class="form-input" type="text" name="Internet users" id="Internet users" placeholder="Enter the number of internet users" required>
+            </div>
+            
+            <center>
+                <input type="submit" class="logbtn" value="Predict">
+            </center>
+            
+            {% if showcase %}
+            <div class="bor">
+                <center><b><font color="white" size="5">{{ showcase }}</font></b></center>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
